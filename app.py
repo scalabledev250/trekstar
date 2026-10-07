@@ -7,6 +7,9 @@ from routes.admin import admin_Bp
 from routes.staff import staff_Bp
 from routes.user import user_Bp
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
