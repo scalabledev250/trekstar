@@ -9,9 +9,9 @@ from routes.user import user_Bp
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///trek.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False   # prevents tracking of every change in db
-app.config['SECRET_KEY'] = 'my_key'  # secret string that Flask uses to cryptographically sign and protect data
-db.init_app(app)  # connects the SQLAlchemy object to your Flask application
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False   
+app.config['SECRET_KEY'] = 'my_key'  
+db.init_app(app)  
 
 login_manager = LoginManager()
 login_manager.init_app(app)
@@ -26,7 +26,7 @@ app.register_blueprint(admin_Bp)
 app.register_blueprint(staff_Bp)
 app.register_blueprint(user_Bp)
 
-with app.app_context(): # app.app_context() is used whenever you're running Flask-related code outside of a request (i.e., outside a route like @app.route(...)
+with app.app_context():
     db.create_all() # Create all tables in the configured database
     admin_name = "admin"
     admin_pwd = "adm123"

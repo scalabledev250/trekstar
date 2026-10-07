@@ -1,0 +1,39 @@
+{% extends 'staff_dashboard.html' %}
+
+{% block title %}Manage Users{% endblock %}
+{% block heading %}MANAGE USERS{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="card">
+        <div class="card-header"><h2>Participants ({{ plen }})</h2></div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table staff-table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Booking Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for participant in participants %}
+                        <tr>
+                            <td>{{ participant.id }}</td>
+                            <td>{{ participant.trekker.user.username }}</td>
+                            <td>{{ participant.trekker.user.email }}</td>
+                            <td>{{ participant.booking_date }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% if not participants %}
+            <p class="empty-note">No registered participants.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

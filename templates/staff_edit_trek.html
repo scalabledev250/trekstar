@@ -4,42 +4,47 @@
 {% block heading %}EDIT TREK{% endblock %}
 
 {% block content %}
-<div class="container mt-4">
+<div class="container">
 
-    <!-- Trek Details Box -->
+    <!-- Trek details (read-only) -->
     <div class="card mb-4">
-        <div class="card-header bg-primary text-white">
-            Trek Details
-        </div>
-        <div class="card-body">
+        <div class="card-header"><h2>Trek Details</h2></div>
+        <div class="card-body trek-detail">
             <p><strong>Name:</strong> {{ trek.name }}</p>
             <p><strong>Location:</strong> {{ trek.location }}</p>
             <p><strong>Duration:</strong> {{ trek.duration }} days</p>
-            <p><strong>Difficulty:</strong> {{ trek.difficulty }}</p>
+            <p><strong>Difficulty:</strong> {{ trek.difficulty.name }}</p>
             <p><strong>Description:</strong> {{ trek.description }}</p>
-            <p><strong>Image:</strong> <img src="{{ trek.image }}" alt="Trek Image" class="img-fluid"></p>
+            <p class="mb-0"><strong>Image:</strong><br>
+                <img src="{{ trek.image }}" alt="Image of {{ trek.name }}" class="img-fluid mt-2">
+            </p>
         </div>
     </div>
 
-    <!-- Editable Form -->
-    <form action="{{ url_for('staff.edittrek', trek_id=trek.id) }}" method="POST" class="needs-validation" novalidate>
-        
-        <div class="form-floating mb-3">
-            <input type="number" class="form-control" name="available_slots" value="{{ trek.available_slots }}" required>
-            <label for="available_slots">Available Slots</label>
-        </div>
+    <!-- Editable form -->
+    <div class="card">
+        <div class="card-header"><h2>Update Availability</h2></div>
+        <div class="card-body">
+            <form action="{{ url_for('staff.edittrek', trek_id=trek.id) }}" method="POST" class="needs-validation" novalidate>
 
-        <div class="form-floating mb-3">
-            <select class="form-select" name="status" required>
-                <option value="Upcoming" {% if trek.status == 'Upcoming' %}selected{% endif %}>Upcoming</option>
-                <option value="Started" {% if trek.status == 'Started' %}selected{% endif %}>Started</option>
-                <option value="Completed" {% if trek.status == 'Completed' %}selected{% endif %}>Completed</option>
-            </select>
-            <label for="status">Status</label>
-        </div>
+                <div class="form-floating mb-3">
+                    <input type="number" min="0" class="form-control" id="available_slots" name="available_slots" value="{{ trek.available_slots }}" placeholder="Available slots" required>
+                    <label for="available_slots">Available Slots</label>
+                </div>
 
-        <button type="submit" class="btn btn-success">Save Changes</button>
-        <a href="{{ url_for('staff.stafftrek') }}" class="btn btn-secondary">Back</a>
-    </form>
+                <div class="form-floating mb-4">
+                    <select class="form-select" id="status" name="status" required>
+                        <option value="Upcoming"  {% if trek.status.value == 'Upcoming' %}selected{% endif %}>Upcoming</option>
+                        <option value="Started"   {% if trek.status.value == 'Started' %}selected{% endif %}>Started</option>
+                        <option value="Completed" {% if trek.status.value == 'Completed' %}selected{% endif %}>Completed</option>
+                    </select>
+                    <label for="status">Status</label>
+                </div>
+
+                <button type="submit" class="btn btn-staff">Save changes</button>
+                <a href="{{ url_for('staff.stafftrek') }}" class="btn btn-staff-outline">Back</a>
+            </form>
+        </div>
+    </div>
 </div>
 {% endblock %}

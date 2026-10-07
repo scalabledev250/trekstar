@@ -1,0 +1,288 @@
+/* =========================================================
+   staff.css — Staff area theme (Prussian blue)
+   Used by: staff_dashboard.html (base), staff_trek.html,
+            staff_edit_trek.html, staff_participants.html
+   ========================================================= */
+
+/* ---------- Design tokens ---------- */
+:root {
+    --pb-950: #00172a;
+    --pb-900: #002440;
+    --pb-800: #003153;   /* Prussian blue (primary) */
+    --pb-700: #0c4670;
+    --pb-500: #2f6f9f;
+    --pb-300: #8fb2cf;
+    --pb-100: #dce8f2;
+    --pb-50:  #f1f6fa;
+
+    --accent:      #d9a441;  /* summit gold – used sparingly */
+    --accent-dark: #b8862a;
+
+    --ink:        #10222f;
+    --ink-muted:  #55697a;
+    --surface:    #ffffff;
+    --line:       #c9d8e4;
+
+    --ok:   #2e7d5b;
+    --warn: #b7791f;
+    --info: #2f6f9f;
+
+    --radius:     10px;
+    --radius-sm:  6px;
+    --shadow:     0 6px 22px rgba(0, 36, 64, .18);
+
+    --nav-h:      56px;
+
+    --font-head: "Sora", "Segoe UI", system-ui, sans-serif;
+    --font-body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+
+    /* Background image for the content area (header & navbar excluded).
+       Overridden per-page from the base template; this is the fallback. */
+    --staff-bg: url("../static/sunsettrek.jpg");
+}
+
+/* ---------- Base ---------- */
+body.staff-body {
+    padding-top: var(--nav-h);
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    color: var(--ink);
+    background: var(--pb-950);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+h1, h2, h3, h4, h5, h6 { font-family: var(--font-head); letter-spacing: -.01em; }
+
+a { color: var(--pb-700); }
+a:hover { color: var(--pb-500); }
+
+:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 2px;
+}
+
+/* ---------- Navbar (fixed top) ---------- */
+.staff-navbar {
+    height: var(--nav-h);
+    background: var(--pb-900) !important;
+    border-bottom: 3px solid var(--accent);
+    box-shadow: var(--shadow);
+}
+.staff-navbar .navbar-brand {
+    color: #fff;
+    font-family: var(--font-head);
+    font-weight: 600;
+    font-size: 1.05rem;
+}
+.staff-navbar .navbar-toggler {
+    border-color: rgba(255, 255, 255, .45);
+    margin-right: .75rem;
+}
+.staff-navbar .navbar-toggler-icon { filter: invert(1); }
+
+.staff-offcanvas {
+    background: var(--pb-900);
+    color: #fff;
+    width: 260px;
+}
+.staff-offcanvas .offcanvas-title { font-family: var(--font-head); }
+.staff-offcanvas .btn-close { filter: invert(1); }
+.staff-offcanvas .nav-link {
+    color: var(--pb-100);
+    padding: .65rem 1rem;
+    border-radius: var(--radius-sm);
+    border-left: 4px solid transparent;
+    transition: background .15s, color .15s;
+}
+.staff-offcanvas .nav-link:hover { background: var(--pb-700); color: #fff; }
+.staff-offcanvas .nav-link.active {
+    background: var(--pb-800);
+    color: #fff;
+    font-weight: 600;
+    border-left-color: var(--accent);
+}
+
+/* ---------- Page header (title + welcome) ---------- */
+.staff-header {
+    background: linear-gradient(135deg, var(--pb-800) 0%, var(--pb-900) 100%);
+    color: #fff;
+    padding: 1.4rem 1.5rem 1.1rem;
+    text-align: center;
+}
+.staff-header h1 {
+    margin: 0;
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    font-weight: 700;
+}
+.staff-header .welcome {
+    margin: .35rem 0 0;
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    font-weight: 400;
+    color: var(--pb-300);
+}
+
+/* ---------- Background-image area (everything below header) ---------- */
+.staff-main {
+    flex: 1 0 auto;
+    position: relative;
+    isolation: isolate;
+    padding: 1.5rem 0 3rem;
+    background-color: var(--pb-900);
+    background-image:  url("../static/sunsettrek.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+/* Prussian-blue wash keeps text readable over any photo */
+.staff-main::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(180deg, rgba(0, 36, 64, .72), rgba(0, 23, 42, .86));
+}
+
+/* ---------- Panels / cards ---------- */
+.staff-panel,
+.staff-main .card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+}
+.staff-main .card-header {
+    background: var(--pb-800);
+    color: #fff;
+    border-bottom: 3px solid var(--accent);
+    padding: .85rem 1.25rem;
+}
+.staff-main .card-header h2,
+.staff-main .card-header h3 {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+.staff-main .card-body { padding: 1.25rem; }
+
+/* Stat tiles on dashboard */
+.staff-card {
+    border-left: 6px solid var(--accent);
+    background: var(--surface);
+}
+.staff-card-head {
+    color: var(--pb-700);
+    font-size: .95rem;
+    font-weight: 600;
+    margin-bottom: .35rem;
+}
+.staff-stat {
+    margin: 0;
+    font-family: var(--font-head);
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--pb-800);
+    line-height: 1.1;
+}
+
+/* ---------- Tables ---------- */
+.staff-table {
+    margin: 0;
+    border-color: var(--line);
+    --bs-table-striped-bg: var(--pb-50);
+}
+.staff-table thead th {
+    background: var(--pb-700);
+    color: #fff;
+    font-family: var(--font-head);
+    font-weight: 600;
+    font-size: .9rem;
+    border-color: var(--pb-700);
+    white-space: nowrap;
+}
+.staff-table td { vertical-align: middle; }
+.staff-table tbody tr:hover > * { background-color: var(--pb-100); }
+
+.table-responsive { border-radius: var(--radius-sm); }
+
+/* Status badges */
+.status-badge {
+    display: inline-block;
+    padding: .2rem .65rem;
+    border-radius: 999px;
+    font-size: .85rem;
+    font-weight: 600;
+    background: var(--pb-100);
+    color: var(--pb-800);
+}
+.status-upcoming  { background: #dcebf7; color: var(--info); }
+.status-started   { background: #fbefd3; color: var(--warn); }
+.status-completed { background: #d9efe5; color: var(--ok); }
+
+.empty-note {
+    margin: 1rem 0 0;
+    padding: .9rem 1rem;
+    border-radius: var(--radius-sm);
+    background: var(--pb-50);
+    color: var(--ink-muted);
+    border: 1px dashed var(--pb-300);
+}
+
+/* ---------- Buttons ---------- */
+.btn-staff,
+.btn-success {
+    --bs-btn-bg: var(--pb-800);
+    --bs-btn-border-color: var(--pb-800);
+    --bs-btn-color: #fff;
+    --bs-btn-hover-bg: var(--pb-700);
+    --bs-btn-hover-border-color: var(--pb-700);
+    --bs-btn-hover-color: #fff;
+    --bs-btn-active-bg: var(--pb-900);
+    --bs-btn-active-border-color: var(--pb-900);
+    font-weight: 600;
+    border-radius: var(--radius-sm);
+}
+.btn-staff-outline,
+.btn-secondary {
+    --bs-btn-bg: transparent;
+    --bs-btn-color: var(--pb-800);
+    --bs-btn-border-color: var(--pb-500);
+    --bs-btn-hover-bg: var(--pb-100);
+    --bs-btn-hover-color: var(--pb-900);
+    --bs-btn-hover-border-color: var(--pb-700);
+    --bs-btn-active-bg: var(--pb-100);
+    --bs-btn-active-color: var(--pb-900);
+    font-weight: 600;
+    border-radius: var(--radius-sm);
+}
+
+/* ---------- Forms ---------- */
+.staff-main .form-control,
+.staff-main .form-select {
+    border-color: var(--line);
+    border-radius: var(--radius-sm);
+}
+.staff-main .form-control:focus,
+.staff-main .form-select:focus {
+    border-color: var(--pb-500);
+    box-shadow: 0 0 0 .25rem rgba(47, 111, 159, .25);
+}
+.staff-main .form-floating > label { color: var(--ink-muted); }
+
+/* ---------- Edit-trek page ---------- */
+.trek-detail p { margin-bottom: .6rem; }
+.trek-detail strong { color: var(--pb-700); }
+.trek-detail img { border-radius: var(--radius-sm); max-height: 260px; object-fit: cover; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 576px) {
+    .staff-main { background-attachment: scroll; padding-top: 1rem; }
+    .staff-stat { font-size: 2rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+}

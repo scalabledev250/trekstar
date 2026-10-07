@@ -4,16 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Admin dashboard{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bitter:wght@500;700;800&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin_dashboard.css') }}">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </head>
-</head>
 <body>
-    <div style="padding-top: 70px;">
-    <h1 style="text-align: center; margin: 2px;">{%block heading %}ADMIN DASHBOARD{% endblock %}</h1>
+    <div class="dash-shell">
+    <h1 class="dash-header">{%block heading %}ADMIN DASHBOARD{% endblock %}</h1>
+    <div class="dash-bg">
     {% block content %}
-    <h2 style="margin: 20px">Welcome, {{ name }}!</h2>
+    <h2 class="dash-welcome">Welcome, {{ name }}!</h2>
     <div class="container mt-4">
         <div class="row">
             <div class="col-md-3">
@@ -41,7 +44,7 @@
             </div>
             </div>
             <div class="col-md-3">
-            <div class="card text-center mt-4">  
+            <div class="card text-center mt-4">
                 <div class="card-body admin-card">
                 <h5 class="card-title admin-card-head">Total Bookings</h5>
                 <p class="card-text">{{ total_bookings }}</p>
@@ -50,9 +53,9 @@
             </div>
         </div>
     </div>
-    <form class="d-flex mb-3 m-4" action="{{ url_for('admin.admindashboard') }}" method="GET">
-    <input class="form-control me-2" type="search" name="staff" placeholder="Search staff members" aria-label="Search" required>
-    <button class="btn btn-outline-primary" type="submit">Search</button>
+    <form class="d-flex mb-3 m-4 trail-search" action="{{ url_for('admin.admindashboard') }}" method="GET">
+    <input class="form-control me-2" type="search" name="staff" placeholder="Search staff members" aria-label="Search staff members" required>
+    <button class="btn btn-trek" type="submit">Search</button>
     </form>
     {% if staff_search %}
         <h3>Search Results for "{{ staff_search }}":</h3>
@@ -67,38 +70,37 @@
         {% endif %}
     {% endif %}
 
-    <form class="d-flex mb-3 m-4" action="{{ url_for('admin.admindashboard') }}" method="GET">
-    <input class="form-control me-2" type="search" name="user" placeholder="Search users" aria-label="Search" required>
-    <button class="btn btn-outline-primary" type="submit">Search</button>
+    <form class="d-flex mb-3 m-4 trail-search" action="{{ url_for('admin.admindashboard') }}" method="GET">
+    <input class="form-control me-2" type="search" name="user" placeholder="Search users" aria-label="Search users" required>
+    <button class="btn btn-trek" type="submit">Search</button>
     </form>
     {% if user_search %}
         <h3>Search Results for "{{ user_search }}":</h3>
         {% if ures %}
-            <ul>
-                {% for user in ures %}
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Email</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for user in ures %}
-                            <tr>
-                                <td>{{ user.username }}</td>
-                                <td>{{ user.email }}</td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                {% endfor %}
-                {% endif %}
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in ures %}
+                    <tr>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.email }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>No such users found.</p>
+        {% endif %}
     {% endif %}
 
-    <form class="d-flex mb-3 m-4" action="{{ url_for('admin.admindashboard') }}" method="GET">
-    <input class="form-control me-2" type="search" name="trek" placeholder="Search treks" aria-label="Search" required>
-    <button class="btn btn-outline-primary" type="submit">Search</button>
+    <form class="d-flex mb-3 m-4 trail-search" action="{{ url_for('admin.admindashboard') }}" method="GET">
+    <input class="form-control me-2" type="search" name="trek" placeholder="Search treks" aria-label="Search treks" required>
+    <button class="btn btn-trek" type="submit">Search</button>
     </form>
     {% if trek_search %}
         <h3>Search Results for "{{ trek_search }}":</h3>
@@ -112,9 +114,9 @@
             <p>No such treks found.</p>
         {% endif %}
     {% endif %}
-
     {% endblock %}
-    <nav class="navbar bg-body-tertiary fixed-top">
+    </div>
+    <nav class="navbar bg-body-tertiary fixed-top" data-bs-theme="dark">
         <div class="container-fluid">
             <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -127,10 +129,10 @@
                 <div class="offcanvas-body">
                     <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('admin.admindashboard') }}">Dashboard</a>
+                            <a class="nav-link active" aria-current="page" href="{{ url_for('admin.admindashboard') }}">Dashboard</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="{{ url_for('admin.addtrek') }}">Add Trek</a>
+                            <a class="nav-link" href="{{ url_for('admin.addtrek') }}">Add Trek</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ url_for('admin.managetrek') }}">Manage Treks</a>
@@ -141,15 +143,15 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{ url_for('admin.managestaff') }}">Staff</a>
                         </li>
-                        <li>
+                        <li class="nav-item">
                             <a class="nav-link" href="{{ url_for('admin.manageusers') }}">Users</a>
                         </li>
-                        <li>
+                        <li class="nav-item">
                             <a class="nav-link" href="{{ url_for('auth.logout') }}">Logout</a>
                         </li>
                     </ul>
                 </div>
-                </div>
+            </div>
         </div>
     </nav>
     </div>

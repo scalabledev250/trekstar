@@ -57,26 +57,37 @@ def booktrek():
 
     return redirect(url_for("user.userdashboard"))
 
-@user_Bp.route('/cancelbooking/<int:booking_id>', methods=['POST', 'GET'])
+@user_Bp.route('/cancelbooking/<int:booking_id>', methods=['POST'])
+@login_required
 def cancelbooking(booking_id):
-    trek_id = request.form.get('trek_id')
-    trek = Trek.query.get_or_404(trek_id)
     trekker = current_user.trekker
-    booking = Booking.query.filter_by(id=booking_id, trekker_id=trekker.id, status=BookStatus.booked).first()
+    booking = Booking.query.filter_by(
+        id=booking_id, trekker_id=trekker.id, status=BookStatus.booked
+    ).first_or_404()
+    trek = booking.treks            # use the booking's own trek, not a form value
     booking.status = BookStatus.cancelled
     booking.participants = max(0, (booking.participants or 0) - 1)
     trek.available_slots = (trek.available_slots or 0) + 1
-    db.session.add(booking)
-    db.session.add(trek)
     db.session.commit()
-    return redirect(url_for('user.mybookings', trekker_id=trekker.id))
+    return redirect(url_for('user.mybookings'))
 
-@user_Bp.route('/mybookings', methods=['GET','POST'])
+@user_Bp.route('/mybookings', methods=['GET', 'POST'])
+@login_required
 def mybookings():
-    bookings = Booking.query.filter_by(trekker_id=current_user.id).all()
+    bookings = []
+    if getattr(current_user, "trekker", None):
+        bookings = Booking.query.filter_by(
+            trekker_id=current_user.trekker.id,
+            status=BookStatus.booked
+        ).all()
     return render_template('user_bookings.html', bookings=bookings)
 
-@user_Bp.route('/history', methods=['GET','POST'])
+@user_Bp.route('/history', methods=['GET', 'POST'])
+@login_required
 def history():
-    bookings = Booking.query.filter_by(trekker_id=current_user.id).all()
+    bookings = []
+    if getattr(current_user, "trekker", None):
+        bookings = Booking.query.filter_by(
+            trekker_id=current_user.trekker.id
+        ).order_by(Booking.booking_date.desc()).all()
     return render_template('user_history.html', bookings=bookings)

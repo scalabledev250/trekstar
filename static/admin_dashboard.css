@@ -1,0 +1,437 @@
+/* ==========================================================
+   Trek management – admin dashboard
+   Palette
+     Garnet #6b1a1a   header, card heads
+     Oxblood #3d0f0f  navbar
+     Brick  #9a3b32   secondary
+     Blaze  #e8832e   trail-blaze orange accent
+     Mist   #f7f3f1   panels
+     Slate  #2b3138   body text
+   Type
+     Headings: Bitter (slab, like routed park signage)
+     Body:     Nunito Sans
+   ========================================================== */
+:root {
+    --pine: #6b1a1a;
+    --forest: #3d0f0f;
+    --moss: #9a3b32;
+    --blaze: #e8832e;
+    --blaze-dark: #a65210;
+    --mist: #f7f3f1;
+    --slate: #2b3138;
+    --lake: #1a4f8b;
+    --panel: rgba(248, 244, 242, 0.95);
+}
+
+/* ---------- Base ---------- */
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    background-color: var(--pine);   /* solid: no image behind header/navbar */
+    color: var(--slate);
+    font-family: "Nunito Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Bitter", Georgia, serif;
+}
+
+/* ---------- Navbar (solid, fixed) ---------- */
+.navbar.fixed-top {
+    background-color: var(--forest) !important;
+    border-bottom: 3px solid var(--blaze);
+}
+.navbar-toggler {
+    border-color: rgba(255, 255, 255, 0.35);
+}
+.navbar-toggler:focus {
+    box-shadow: 0 0 0 3px rgba(232, 131, 46, 0.5);
+}
+.offcanvas {
+    background-color: var(--forest);
+    width: 280px;
+}
+.offcanvas-title {
+    font-family: "Bitter", Georgia, serif;
+    font-weight: 700;
+    color: #fff;
+}
+.offcanvas .nav-link {
+    color: #f0dcd8;
+    padding: 0.7rem 1rem;
+    border-left: 4px solid transparent;
+    border-radius: 0 6px 6px 0;
+    font-weight: 600;
+}
+.offcanvas .nav-link:hover,
+.offcanvas .nav-link:focus {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.07);
+    border-left-color: var(--moss);
+}
+.offcanvas .nav-link.active {
+    color: #fff;
+    background: rgba(232, 131, 46, 0.18);
+    border-left-color: var(--blaze);
+}
+
+/* ---------- Page shell ---------- */
+.dash-shell {
+    padding-top: 56px;            /* height of the fixed navbar */
+}
+
+/* ---------- Header (solid, no image) ---------- */
+.dash-header {
+    margin: 0;
+    padding: 1.4rem 1rem 1.2rem;
+    text-align: center;
+    background-color: var(--pine);
+    color: #fff;
+    font-weight: 800;
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    letter-spacing: 0.12em;
+}
+
+/* ---------- Background image: content area only ---------- */
+.dash-bg {
+    min-height: calc(100vh - 56px - 90px);
+    padding: 1.5rem 0 3rem;
+    border-top: 4px solid var(--blaze);
+    background-image:
+        linear-gradient(rgba(45, 8, 8, 0.35), rgba(45, 8, 8, 0.58)),
+        url("../static/Valley.webp");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+/* ---------- Welcome ---------- */
+.dash-welcome,
+.dash-bg .card-header h2 {
+    display: inline-block;
+    margin: 0.5rem 1.5rem 0;
+    padding: 0.6rem 1.2rem;
+    font-size: clamp(1.2rem, 3vw, 1.6rem);
+    font-weight: 700;
+    color: var(--pine);
+    background: var(--panel);
+    border-left: 6px solid var(--blaze);
+    border-radius: 0 8px 8px 0;
+}
+
+/* Section titles inside cards ("Bookings (3)", "Pending Approvals", ...) */
+.dash-bg .card-header {
+    padding: 0 0 0.75rem;
+    background: transparent;
+    border: 0;
+}
+.dash-bg .card-header h2 {
+    margin: 0;
+}
+.dash-bg .card-header + .card-body {
+    background: var(--panel);
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.28);
+}
+.dash-bg .card-body .table thead th {
+    background: var(--pine);
+    color: #fff;
+    font-family: "Bitter", Georgia, serif;
+}
+
+/* ---------- Stat cards ---------- */
+.dash-bg .card {
+    background: transparent;
+    border: 0;
+}
+.admin-card {
+    padding: 0 !important;
+    overflow: hidden;
+    background: var(--panel);
+    border: 2px solid var(--pine);
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.28);
+}
+.admin-card-head {
+    margin: 0;
+    padding: 0.7rem 1rem;
+    background-color: var(--pine);
+    color: #fff;
+    border-bottom: 3px solid var(--blaze);
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+}
+.admin-card .card-text {
+    margin: 0;
+    padding: 0.7rem 0 0.9rem;
+    font-family: "Bitter", Georgia, serif;
+    font-size: 2.8rem;
+    font-weight: 800;
+    line-height: 1.1;
+    color: var(--blaze-dark);
+}
+
+/* Variants kept for other pages */
+.staff-card-head {
+    background-color: var(--moss);
+    color: #fff;
+    padding: 0.7rem 1rem;
+    border-radius: 8px 8px 0 0;
+    margin: -1rem -1rem 0.75rem;
+}
+.staff-card {
+    border: 2px solid var(--moss);
+    border-radius: 10px;
+}
+.user-card-head {
+    background-color: var(--lake);
+    color: #fff;
+    padding: 0.7rem 1rem;
+    border-radius: 8px 8px 0 0;
+    margin: -1rem -1rem 0.75rem;
+}
+.user-card {
+    border: 2px solid var(--lake);
+    border-radius: 10px;
+}
+
+/* ---------- Search forms ---------- */
+.trail-search {
+    padding: 0.9rem 1rem;
+    background: var(--panel);
+    border-left: 6px solid var(--moss);
+    border-radius: 0 10px 10px 0;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.22);
+}
+.trail-search .form-control {
+    border: 1px solid #d3bdb9;
+    border-radius: 8px;
+}
+.trail-search .form-control:focus {
+    border-color: var(--moss);
+    box-shadow: 0 0 0 3px rgba(154, 59, 50, 0.3);
+}
+.btn-trek {
+    background-color: var(--blaze);
+    border-color: var(--blaze);
+    color: #fff;
+    font-weight: 700;
+    border-radius: 8px;
+    padding-inline: 1.3rem;
+}
+.btn-trek:hover,
+.btn-trek:focus {
+    background-color: var(--blaze-dark);
+    border-color: var(--blaze-dark);
+    color: #fff;
+}
+.btn-trek:focus-visible {
+    box-shadow: 0 0 0 3px rgba(232, 131, 46, 0.45);
+}
+
+/* ---------- Search results ---------- */
+.dash-bg > h3 {
+    display: inline-block;
+    margin: 0 1.5rem 0.5rem;
+    padding: 0.4rem 1rem;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #fff;
+    background: var(--pine);
+    border-left: 6px solid var(--blaze);
+    border-radius: 0 8px 8px 0;
+}
+.dash-bg > ul {
+    margin: 0 1.5rem 1.5rem;
+    padding: 0.8rem 1.2rem 0.8rem 2.2rem;
+    background: var(--panel);
+    border-radius: 10px;
+}
+.dash-bg > ul li {
+    padding: 0.2rem 0;
+}
+.dash-bg > ul li::marker {
+    color: var(--blaze);
+}
+.dash-bg > p {
+    display: block;
+    width: fit-content;
+    margin: 0 1.5rem 1.5rem;
+    padding: 0.6rem 1rem;
+    background: var(--panel);
+    border-radius: 8px;
+    font-style: italic;
+}
+.dash-bg > .table {
+    width: calc(100% - 3rem);
+    margin: 0 1.5rem 1.5rem;
+    background: var(--panel);
+    border-radius: 10px;
+    overflow: hidden;
+    --bs-table-bg: transparent;
+}
+.dash-bg > .table thead th {
+    background: var(--pine);
+    color: #fff;
+    font-family: "Bitter", Georgia, serif;
+}
+
+/* ---------- Shared styles for child templates (forms, tables, buttons) ---------- */
+.dash-bg > .d-flex.justify-content-end {
+    padding: 0 1.5rem;
+}
+.dash-bg .container > form {
+    padding: 1.5rem;
+    background: var(--panel);
+    border-left: 6px solid var(--blaze);
+    border-radius: 0 10px 10px 0;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.28);
+}
+.dash-bg .form-control:focus,
+.dash-bg .form-select:focus {
+    border-color: var(--moss);
+    box-shadow: 0 0 0 3px rgba(154, 59, 50, 0.3);
+}
+.dash-bg .btn-primary {
+    background-color: var(--blaze);
+    border-color: var(--blaze);
+    color: #fff;
+    font-weight: 700;
+    border-radius: 8px;
+}
+.dash-bg .btn-primary:hover,
+.dash-bg .btn-primary:focus {
+    background-color: var(--blaze-dark);
+    border-color: var(--blaze-dark);
+}
+.dash-bg .btn-secondary {
+    background-color: var(--forest);
+    border-color: var(--forest);
+    color: #fff;
+    font-weight: 600;
+    border-radius: 8px;
+}
+.dash-bg .btn-secondary:hover,
+.dash-bg .btn-secondary:focus {
+    background-color: var(--pine);
+    border-color: var(--pine);
+}
+.dash-bg .container .table {
+    background: var(--panel);
+    --bs-table-bg: transparent;
+}
+.dash-bg .container .table thead th {
+    background: var(--pine);
+    color: #fff;
+    font-family: "Bitter", Georgia, serif;
+}
+
+/* Tables inside cards fill the panel (templates add ms-4 / mt-4 to them) */
+.dash-bg .card-body .table.ms-4 {
+    margin-left: 0 !important;
+}
+.dash-bg .card-body .table.mt-4 {
+    margin-top: 0 !important;
+}
+.dash-bg .card-body .table td {
+    vertical-align: middle;
+}
+
+/* Destructive action (Delete): outlined, fills on hover */
+.dash-bg .btn-delete {
+    background-color: #fff;
+    border: 2px solid var(--pine);
+    color: var(--pine);
+    font-weight: 700;
+    border-radius: 8px;
+}
+.dash-bg .btn-delete:hover,
+.dash-bg .btn-delete:focus {
+    background-color: var(--pine);
+    border-color: var(--pine);
+    color: #fff;
+}
+
+/* ---------- Trek detail page ---------- */
+.trek-photo {
+    display: block;
+    width: 100%;
+    max-height: 460px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 3px solid var(--pine);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+}
+.trek-details {
+    margin: 0;
+}
+.trek-details > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.7rem 0;
+    border-bottom: 1px solid #e2d3cf;
+}
+.trek-details > div:last-child {
+    border-bottom: 0;
+}
+.trek-details dt {
+    font-weight: 600;
+    color: var(--moss);
+}
+.trek-details dd {
+    margin: 0;
+    font-family: "Bitter", Georgia, serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    text-align: right;
+    color: var(--slate);
+}
+.trek-badge {
+    display: inline-block;
+    padding: 0.2rem 0.8rem;
+    border-radius: 999px;
+    font-family: "Nunito Sans", system-ui, sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-transform: capitalize;
+    color: #fff;
+    background: var(--forest);
+}
+.trek-badge.diff-easy     { background: #3f7a4a; }
+.trek-badge.diff-moderate { background: #a65210; }
+.trek-badge.diff-hard     { background: #8e1f1f; }
+.trek-badge.trek-status   { background: #fff; color: var(--pine); border: 2px solid var(--pine); }
+
+.trek-desc {
+    margin-top: 1.5rem;
+    padding-top: 1.2rem;
+    border-top: 3px solid var(--blaze);
+}
+.trek-desc h3 {
+    margin: 0 0 0.6rem;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--pine);
+}
+.trek-desc p {
+    max-width: 70ch;
+    margin: 0;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    white-space: pre-line;
+}
+
+/* ---------- Small screens ---------- */
+@media (max-width: 575.98px) {
+    .dash-bg { background-attachment: scroll; }
+    .dash-welcome, .dash-bg > h3 { margin-left: 1rem; margin-right: 1rem; }
+    .dash-bg > ul, .dash-bg > p { margin-left: 1rem; margin-right: 1rem; }
+    .dash-bg > .table { width: calc(100% - 2rem); margin-left: 1rem; margin-right: 1rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+}

@@ -1,0 +1,47 @@
+{% extends 'staff_dashboard.html' %}
+
+{% block title %}Manage Treks{% endblock %}
+{% block heading %}MANAGE TREKS{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="card">
+        <div class="card-header"><h2>My Treks ({{ assigned_treks|length }})</h2></div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table staff-table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Location</th>
+                            <th>Difficulty</th>
+                            <th>Available Slots</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for trek in assigned_treks %}
+                        <tr>
+                            <td>{{ trek.id }}</td>
+                            <td>{{ trek.name }}</td>
+                            <td>{{ trek.location }}</td>
+                            <td>{{ trek.difficulty.name }}</td>
+                            <td>{{ trek.available_slots }}</td>
+                            <td><span class="status-badge status-{{ trek.status.value|lower }}">{{ trek.status.value }}</span></td>
+                            <td>
+                                <a class="btn btn-staff btn-sm" href="{{ url_for('staff.edittrek', trek_id=trek.id) }}">Edit</a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% if not assigned_treks %}
+            <p class="empty-note">No treks are assigned to you yet.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

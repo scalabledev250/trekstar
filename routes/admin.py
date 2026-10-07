@@ -40,7 +40,7 @@ def managestaff():
     alen = len(approved_staff)
     blackl_staff = Staff.query.filter_by(status=UserStatus.blacklisted).all()
     blen = len(blackl_staff)
-    return render_template('manage_staff.html', pending_staff=pending_staff, approved_staff=approved_staff, blacklisted=blackl_staff,
+    return render_template('admin_manage_staff.html', pending_staff=pending_staff, approved_staff=approved_staff, blacklisted=blackl_staff,
                             pending_length=plen, approved_length=alen, blacklist_length=blen)  
 
 @admin_Bp.route('/approvestaff', methods=['GET', 'POST'], endpoint='approvestaff')
@@ -108,7 +108,7 @@ def addtrek():
 @admin_Bp.route('/managetrek', methods=['GET', 'POST'], endpoint='managetrek')
 def managetrek():
     treks = Trek.query.filter_by(is_deleted=False).all()
-    return render_template('manage_trek.html', treks=treks)
+    return render_template('admin_manage_trek.html', treks=treks)
 
 @admin_Bp.route('/viewtrek/<int:trek_id>', methods=['GET'], endpoint='viewtrek')
 def viewtrek(trek_id):
@@ -169,11 +169,11 @@ def manageusers():
             trekker.is_deleted = True
         db.session.commit()
         return redirect( url_for('admin.manageusers'))
-    return render_template('manage_users.html', trekkers=trekkers, blist=blist, tlen=tlen, blen=blen)
+    return render_template('admin_manage_users.html', trekkers=trekkers, blist=blist, tlen=tlen, blen=blen)
 
 @admin_Bp.route('/booking', methods=['GET','POST'])
 def bookings():
     bookings = Booking.query.all()
-    return render_template('booking.html', bookings=bookings, booklen=len(bookings))
+    return render_template('admin_booking.html', bookings=bookings, booklen=len(bookings))
 
 

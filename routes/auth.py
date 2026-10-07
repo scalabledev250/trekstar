@@ -42,7 +42,7 @@ def userregister():
             db.session.add(trekker_new)
             db.session.commit()
             return redirect(url_for('auth.userlogin'))
-    return render_template('user_register.html')
+    return render_template('register.html')
 
 @auth_Bp.route('/stafflogin', methods=['GET','POST'], endpoint='stafflogin')
 def stafflogin():

@@ -67,13 +67,13 @@
                                 <td>
                                     <form action="{{ url_for('admin.remblstaff') }}" method="POST">
                                         <input type="hidden" name="staff_id" value="{{ staff.id }}">
-                                        <button type="submit" name="action" value="remove">Remove Staff</button>
+                                        <button type="submit" name="action" value="remove" class="btn btn-secondary">Remove Staff</button>
                                     </form>                
                                 </td>
                                 <td>
                                     <form action="{{ url_for('admin.remblstaff') }}" method="POST">
                                         <input type="hidden" name="staff_id" value="{{ staff.id }}">
-                                        <button type="submit" name="action" value="blacklist">Blacklist Staff</button>
+                                        <button type="submit" name="action" value="blacklist" class="btn btn-primary">Blacklist Staff</button>
                                     </form>                
                                 </td>
                             </tr>
@@ -110,7 +110,7 @@
                                 <td>
                                     <form action="{{ url_for('admin.remblstaff') }}" method="POST">
                                         <input type="hidden" name="staff_id" value="{{ staff.id }}">
-                                        <button type="submit" name="action" value="remblack">Remove from Blacklist</button>
+                                        <button type="submit" name="action" value="remblack" class="btn btn-primary">Remove from Blacklist</button>
                                     </form>            
                                 </td>
                             </tr>

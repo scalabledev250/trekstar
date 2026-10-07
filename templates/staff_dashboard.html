@@ -4,100 +4,120 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Staff dashboard{% endblock %}</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='staff.css') }}">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
 </head>
-<body style="padding-top: 70px;">
-    <h1 style="text-align: center; margin: 2px">{% block heading %}STAFF DASHBOARD{% endblock %}</h1>
-    <h2 style="margin-left: 20px">Welcome, {{ name }}!</h2>
-    {% block content %}
-    <div class="container mt-4">
-        <div class="row">
-            <div class="col-md-4">
-            <div class="card text-center mt-4">
-                <div class="card-body staff-card">
-                <h5 class="card-title staff-card-head">Assigned Treks</h5>
-                <p class="card-text">{{ alen }}</p>
-                </div>
-            </div>
-            </div>
-            <div class="col-md-4">
-            <div class="card text-center mt-4">
-                <div class="card-body staff-card">
-                <h5 class="card-title staff-card-head">Net Users</h5>
-                <p class="card-text">{{ total_users }}</p>
-                </div>
-            </div>
-            </div>
-        </div>
-    </div>
-    <div class="row m-4">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header"><h2>Assigned Treks ({{ alen }})</h2></div>
-                <div class="card-body"> 
-                <table class="table mt-4 table-bordered table-striped">
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Trek Name</th>
-                            <th>Location</th>
-                            <th>Participants</th>
-                            <th>Available Slots</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for trek in assigned_treks %}
-                        <tr>
-                            <td>{{ trek.id }}</td>
-                            <td>{{ trek.name }}</td>
-                            <td>{{ trek.location }}</td>
-                            <td>{{ participants }}</td>
-                            <td>{{ trek.available_slots }}</td>
-                            <td>{{ trek.status.value }}</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-                {% if not assigned_treks %}
-    <p>No assigned treks.</p>
-    {% endif %}
-            </div>
-        </div>
-    </div>
-    </div>
-    
-    {% endblock %}
-    <nav class="navbar bg-body-tertiary fixed-top">
+<body class="staff-body">
+
+    <!-- NAVBAR (no background image) -->
+    <nav class="navbar staff-navbar fixed-top">
         <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+            <div class="d-flex align-items-center">
+                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <span class="navbar-brand mb-0">Trek Staff</span>
+            </div>
+            <div class="offcanvas offcanvas-start staff-offcanvas" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
                 <div class="offcanvas-header">
                     <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
                 <div class="offcanvas-body">
-                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                    <ul class="navbar-nav flex-grow-1 pe-3">
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('staff.staffdashboard') }}">Dashboard</a>
+                            <a class="nav-link {% if request.endpoint == 'staff.staffdashboard' %}active{% endif %}" href="{{ url_for('staff.staffdashboard') }}">Dashboard</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="{{ url_for('staff.stafftrek') }}">My Treks</a>
+                            <a class="nav-link {% if request.endpoint in ['staff.stafftrek', 'staff.edittrek'] %}active{% endif %}" href="{{ url_for('staff.stafftrek') }}">My Treks</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" href="{{ url_for('staff.participants') }}">Participants</a>
+                            <a class="nav-link {% if request.endpoint == 'staff.participants' %}active{% endif %}" href="{{ url_for('staff.participants') }}">Participants</a>
                         </li>
-                        <li>
+                        <li class="nav-item">
                             <a class="nav-link" href="{{ url_for('auth.logout') }}">Logout</a>
                         </li>
                     </ul>
                 </div>
-                </div>
+            </div>
         </div>
     </nav>
+
+    <!-- HEADER (no background image) -->
+    <header class="staff-header">
+        <h1>{% block heading %}STAFF DASHBOARD{% endblock %}</h1>
+        <p class="welcome">Welcome, {{ name }}!</p>
+    </header>
+
+    <!-- CONTENT AREA (background image applied here only).
+         To change the image: edit the --staff-bg value below, or
+         override the block `bg_image` in a child template. -->
+    <main class="staff-main"
+          style="--staff-bg: url('{% block bg_image %}{{ url_for('static', filename='images/staff-bg.jpg') }}{% endblock %}');">
+        {% block content %}
+        <div class="container">
+            <div class="row g-4 justify-content-center">
+                <div class="col-md-5 col-lg-4">
+                    <div class="card text-center">
+                        <div class="card-body staff-card">
+                            <h5 class="card-title staff-card-head">Assigned Treks</h5>
+                            <p class="staff-stat">{{ alen }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5 col-lg-4">
+                    <div class="card text-center">
+                        <div class="card-body staff-card">
+                            <h5 class="card-title staff-card-head">Net Users</h5>
+                            <p class="staff-stat">{{ total_users }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mt-4">
+                <div class="card-header"><h2>Assigned Treks ({{ alen }})</h2></div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table staff-table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Trek Name</th>
+                                    <th>Location</th>
+                                    <th>Participants</th>
+                                    <th>Available Slots</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for trek in assigned_treks %}
+                                <tr>
+                                    <td>{{ trek.id }}</td>
+                                    <td>{{ trek.name }}</td>
+                                    <td>{{ trek.location }}</td>
+                                    <td>{{ participants }}</td>
+                                    <td>{{ trek.available_slots }}</td>
+                                    <td><span class="status-badge status-{{ trek.status.value|lower }}">{{ trek.status.value }}</span></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% if not assigned_treks %}
+                    <p class="empty-note">No assigned treks.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endblock %}
+    </main>
+
 </body>
 </html>

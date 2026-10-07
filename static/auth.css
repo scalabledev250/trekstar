@@ -1,0 +1,179 @@
+/* ==========================================================
+   TrekBound – login & register pages
+   Same palette and type as the home page and admin dashboard
+   ========================================================== */
+:root {
+    --garnet: #6b1a1a;
+    --oxblood: #3d0f0f;
+    --brick: #9a3b32;
+    --blaze: #e8832e;
+    --blaze-dark: #a65210;
+    --slate: #2b3138;
+    --panel: rgba(248, 244, 242, 0.96);
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--oxblood);
+    color: var(--slate);
+    font-family: "Nunito Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+/* ---------- Header (solid, no image) ---------- */
+.site-header {
+    padding: 1.1rem 1rem;
+    background: var(--garnet);
+    border-bottom: 4px solid var(--blaze);
+    text-align: center;
+}
+.site-header h1 {
+    margin: 0;
+    font-family: "Bitter", Georgia, serif;
+    font-weight: 800;
+    font-size: clamp(1.6rem, 4vw, 2.2rem);
+    letter-spacing: 0.08em;
+    color: #fff;
+}
+
+/* ---------- Background image: add your photo as static/auth-bg.webp ---------- */
+.auth-hero {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+    /* Dusk: peach to rose to plum. Layers: tint, your photo, then the colour backdrop shown until the photo exists */
+    background-image:
+        linear-gradient(rgba(255, 130, 110, 0.15), rgba(90, 25, 80, 0.4)),
+        url("../static/Rupin\ Pass\ Trek\ \ \(1\).webp"),
+        radial-gradient(circle at 15% 0%, rgba(255, 214, 190, 0.75), rgba(255, 214, 190, 0) 50%),
+        linear-gradient(165deg, #ff9a76 0%, #e0546f 50%, #7d2a63 100%);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #f2784b;
+}
+
+/* ---------- Panel ---------- */
+.auth-panel {
+    width: 100%;
+    max-width: 900px;
+    padding: 2.2rem 2rem;
+    background: var(--panel);
+    border-top: 6px solid var(--blaze);
+    border-radius: 12px;
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.4);
+}
+.auth-panel-narrow {
+    max-width: 480px;
+}
+.auth-title {
+    margin: 0 0 0.4rem;
+    text-align: center;
+    font-family: "Bitter", Georgia, serif;
+    font-weight: 800;
+    font-size: clamp(1.6rem, 4.5vw, 2.1rem);
+    color: var(--garnet);
+}
+.auth-sub {
+    margin: 0 auto 1.8rem;
+    max-width: 52ch;
+    text-align: center;
+    font-size: 1.05rem;
+    line-height: 1.6;
+}
+
+/* ---------- Login: role tiles ---------- */
+.role-tile {
+    display: block;
+    height: 100%;
+    padding: 1.5rem 1.2rem;
+    background: #fff;
+    border: 2px solid var(--garnet);
+    border-left: 8px solid var(--blaze);
+    border-radius: 10px;
+    text-decoration: none;
+    color: var(--slate);
+    transition: background-color 0.15s, color 0.15s, border-color 0.15s;
+}
+.role-tile strong {
+    display: block;
+    margin-bottom: 0.3rem;
+    font-family: "Bitter", Georgia, serif;
+    font-size: 1.35rem;
+    color: var(--garnet);
+}
+.role-tile span {
+    font-size: 0.98rem;
+    line-height: 1.5;
+}
+.role-tile:hover,
+.role-tile:focus {
+    background: var(--garnet);
+    border-color: var(--garnet);
+    border-left-color: var(--blaze);
+    color: #f6e6e2;
+}
+.role-tile:hover strong,
+.role-tile:focus strong {
+    color: #fff;
+}
+.role-tile:focus-visible {
+    outline: 3px solid rgba(232, 131, 46, 0.55);
+    outline-offset: 2px;
+}
+
+/* ---------- Register: form ---------- */
+.auth-form .form-control,
+.auth-form .form-select {
+    border: 1px solid #d3bdb9;
+    border-radius: 8px;
+}
+.auth-form .form-control:focus,
+.auth-form .form-select:focus {
+    border-color: var(--brick);
+    box-shadow: 0 0 0 3px rgba(154, 59, 50, 0.3);
+}
+.auth-note {
+    margin: -0.4rem 0 1.2rem;
+    font-size: 0.92rem;
+    color: #5b4a47;
+}
+.btn-auth {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    font-family: "Bitter", Georgia, serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #fff;
+    background: var(--blaze);
+    border: 2px solid var(--blaze);
+    border-radius: 10px;
+}
+.btn-auth:hover,
+.btn-auth:focus {
+    background: var(--blaze-dark);
+    border-color: var(--blaze-dark);
+    color: #fff;
+}
+.btn-auth:focus-visible {
+    box-shadow: 0 0 0 3px rgba(232, 131, 46, 0.45);
+}
+.auth-switch {
+    margin: 1.4rem 0 0;
+    text-align: center;
+}
+.auth-switch a {
+    color: var(--garnet);
+    font-weight: 700;
+}
+.auth-switch a:hover {
+    color: var(--blaze-dark);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+}

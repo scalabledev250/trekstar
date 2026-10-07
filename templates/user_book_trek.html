@@ -1,38 +1,39 @@
-{% extends 'staff_dashboard.html' %}
+{% extends 'user_dashboard.html' %}
 
-{% block title %}Manage Treks{% endblock %}
+{% block title %}User - My Treks{% endblock %}
 
-{% block heading %}MANAGE TREKS{% endblock %}
+{% block heading %}TREKS{% endblock %}
 
 {% block content %}
 <table class="table ms-4 mt-4 table-bordered table-striped">
     <thead>
         <tr>
-            <th>ID</th>
             <th>Name</th>
             <th>Location</th>
             <th>Difficulty</th>
+            <th>Duration</th>
             <th>Available Slots</th>
-            <th>Status</th>
-            <th>Actions</th>
+            <th>Action</th>
         </tr>
     </thead>
     <tbody>
-        {% for trek in assigned_treks %}
+        {% for trek in available_treks %}
         <tr>
-            <td>{{ trek.id }}</td>
             <td>{{ trek.name }}</td>
             <td>{{ trek.location }}</td>
             <td>{{ trek.difficulty.name }}</td>
+            <td>{{ trek.duration }}</td>
             <td>{{ trek.available_slots }}</td>
-            <td>{{ trek.status.value }}</td>
             <td>
                 <div class="d-flex justify-content-between"></div>
-                    <button class="btn"><a href="{{ url_for('staff.edittrek', trek_id=trek.id) }}">Edit</a></button>
+                    <button class="btn btn-primary"><a href="{{ url_for('admin.viewtrek', trek_id=trek.id) }}">Book</a></button>
                 </div>
             </td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
+{% if not available_treks %}
+<p>No treks available.</p>
+{% endif %}
 {% endblock %}

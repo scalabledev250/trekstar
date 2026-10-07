@@ -1,0 +1,141 @@
+/* ==========================================================
+   TrekBound – admin / staff / user login pages (baselogin.html)
+   Same palette and type as home, register and the dashboard
+     Garnet #6b1a1a   header
+     Oxblood #3d0f0f  deep background
+     Brick  #9a3b32   focus / secondary
+     Blaze  #e8832e   accent / main action
+     Mist   #f8f4f2   panel
+     Slate  #2b3138   text
+   Headings: Bitter   Body: Nunito Sans
+   ========================================================== */
+:root {
+    --garnet: #6b1a1a;
+    --oxblood: #3d0f0f;
+    --brick: #9a3b32;
+    --blaze: #e8832e;
+    --blaze-dark: #a65210;
+    --slate: #2b3138;
+    --panel: rgba(248, 244, 242, 0.96);
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--oxblood);
+    color: var(--slate);
+    font-family: "Nunito Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+/* ---------- Header (solid, no image) ---------- */
+.site-header {
+    padding: 1.1rem 1rem;
+    background: var(--garnet);
+    border-bottom: 4px solid var(--blaze);
+    text-align: center;
+}
+.site-header h1 {
+    margin: 0;
+    font-family: "Bitter", Georgia, serif;
+    font-weight: 800;
+    font-size: clamp(1.6rem, 4vw, 2.2rem);
+    letter-spacing: 0.08em;
+    color: #fff;
+}
+
+/* ---------- Background image: add your photo as static/login-bg.webp ---------- */
+.auth-hero {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+    background-image:
+        linear-gradient(rgba(45, 8, 8, 0.35), rgba(45, 8, 8, 0.6)),
+        url("../static/Rupin\ Pass\ Trek\ \ \(1\).webp");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: var(--oxblood);   /* shown until the image exists */
+}
+
+/* ---------- Panel ---------- */
+.auth-panel {
+    width: 100%;
+    max-width: 480px;
+    padding: 2.2rem 2rem;
+    background: var(--panel);
+    border-top: 6px solid var(--blaze);
+    border-radius: 12px;
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.4);
+}
+.auth-title {
+    margin: 0 0 0.4rem;
+    text-align: center;
+    font-family: "Bitter", Georgia, serif;
+    font-weight: 800;
+    font-size: clamp(1.6rem, 4.5vw, 2.1rem);
+    color: var(--garnet);
+}
+.auth-sub {
+    margin: 0 auto 1.8rem;
+    max-width: 52ch;
+    text-align: center;
+    font-size: 1.05rem;
+    line-height: 1.6;
+}
+
+/* ---------- Form ---------- */
+.auth-form .form-control {
+    border: 1px solid #d3bdb9;
+    border-radius: 8px;
+}
+.auth-form .form-control:focus {
+    border-color: var(--brick);
+    box-shadow: 0 0 0 3px rgba(154, 59, 50, 0.3);
+}
+.auth-form .alert {
+    border-radius: 8px;
+}
+.btn-auth {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    font-family: "Bitter", Georgia, serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: #fff;
+    background: var(--blaze);
+    border: 2px solid var(--blaze);
+    border-radius: 10px;
+}
+.btn-auth:hover,
+.btn-auth:focus {
+    background: var(--blaze-dark);
+    border-color: var(--blaze-dark);
+    color: #fff;
+}
+.btn-auth:focus-visible {
+    box-shadow: 0 0 0 3px rgba(232, 131, 46, 0.45);
+}
+
+/* ---------- Links under the form ---------- */
+.auth-switch {
+    margin: 1.4rem 0 0;
+    text-align: center;
+}
+.auth-switch-alt {
+    margin-top: 0.4rem;
+}
+.auth-switch a {
+    color: var(--garnet);
+    font-weight: 700;
+}
+.auth-switch a:hover {
+    color: var(--blaze-dark);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+}

@@ -1,0 +1,129 @@
+/* ==========================================================
+   TrekBound – home page
+   Same palette and type as the admin dashboard
+     Garnet #6b1a1a   header
+     Oxblood #3d0f0f  deep backgrounds
+     Blaze  #e8832e   accent / main action
+     Mist   #f8f4f2   panels
+     Slate  #2b3138   text
+   Headings: Bitter   Body: Nunito Sans
+   ========================================================== */
+:root {
+    --garnet: #6b1a1a;
+    --oxblood: #3d0f0f;
+    --brick: #9a3b32;
+    --blaze: #e8832e;
+    --blaze-dark: #a65210;
+    --slate: #2b3138;
+    --panel: rgba(248, 244, 242, 0.96);
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--oxblood);
+    color: var(--slate);
+    font-family: "Nunito Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+/* ---------- Header (solid, no image) ---------- */
+.site-header {
+    padding: 1.1rem 1rem;
+    background: var(--garnet);
+    border-bottom: 4px solid var(--blaze);
+    text-align: center;
+}
+.site-header h1 {
+    margin: 0;
+    font-family: "Bitter", Georgia, serif;
+    font-weight: 800;
+    font-size: clamp(1.6rem, 4vw, 2.2rem);
+    letter-spacing: 0.08em;
+    color: #fff;
+}
+
+/* ---------- Background image: add your photo as static/home-bg.webp ---------- */
+.home-hero {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+    /* Sunrise: amber to coral to raspberry. Layers: tint, your photo, then the colour backdrop shown until the photo exists */
+    background-image:
+        linear-gradient(rgba(255, 170, 80, 0.15), rgba(150, 30, 60, 0.35)),
+        url("../static/Pass.webp"),
+        radial-gradient(circle at 50% 0%, rgba(255, 232, 170, 0.8), rgba(255, 232, 170, 0) 55%),
+        linear-gradient(165deg, #ffb457 0%, #f2784b 48%, #c23b55 100%);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #f2784b;
+}
+
+/* ---------- Welcome panel ---------- */
+.welcome-panel {
+    width: 100%;
+    max-width: 560px;
+    padding: 2.5rem 2rem;
+    background: var(--panel);
+    border-top: 6px solid var(--blaze);
+    border-radius: 12px;
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.4);
+    text-align: center;
+}
+.welcome-panel h2 {
+    margin: 0 0 0.6rem;
+    font-family: "Bitter", Georgia, serif;
+    font-weight: 800;
+    font-size: clamp(1.7rem, 5vw, 2.3rem);
+    color: var(--garnet);
+}
+.welcome-panel p {
+    margin: 0 auto 1.8rem;
+    max-width: 38ch;
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+/* ---------- Buttons ---------- */
+.home-btn {
+    display: block;
+    padding: 0.95rem 1rem;
+    font-family: "Bitter", Georgia, serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    border-radius: 10px;
+    border: 2px solid var(--blaze);
+    transition: background-color 0.15s, color 0.15s, border-color 0.15s;
+}
+.home-btn-primary {
+    background: var(--blaze);
+    color: #fff;
+}
+.home-btn-primary:hover,
+.home-btn-primary:focus {
+    background: var(--blaze-dark);
+    border-color: var(--blaze-dark);
+    color: #fff;
+}
+.home-btn-secondary {
+    background: transparent;
+    color: var(--garnet);
+    border-color: var(--garnet);
+}
+.home-btn-secondary:hover,
+.home-btn-secondary:focus {
+    background: var(--garnet);
+    color: #fff;
+}
+.home-btn:focus-visible {
+    outline: 3px solid rgba(232, 131, 46, 0.55);
+    outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * { transition: none !important; }
+}
