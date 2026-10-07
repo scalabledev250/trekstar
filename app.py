@@ -18,6 +18,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
 )
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False   
 app.config['SECRET_KEY'] = 'my_key'  
+db.init_app(app)  
 
 login_manager = LoginManager()
 login_manager.init_app(app)
