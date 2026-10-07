@@ -33,6 +33,7 @@ def admindashboard():
 
 
 @admin_Bp.route('/managestaff', methods=['GET'], endpoint='managestaff')
+@login_required
 def managestaff():
     pending_staff = Staff.query.filter_by(status=UserStatus.pending).all()
     plen = len(pending_staff)
@@ -75,6 +76,7 @@ def remblstaff():
 
 
 @admin_Bp.route('/addtrek', methods=['GET','POST'], endpoint='addtrek')
+@login_required
 def addtrek():
     all_staff = User.query.filter_by(role=Role.staff).all()
     if request.method == 'POST':
@@ -106,11 +108,13 @@ def addtrek():
     return render_template('add_trek.html', all_staff=all_staff)
 
 @admin_Bp.route('/managetrek', methods=['GET', 'POST'], endpoint='managetrek')
+@login_required
 def managetrek():
     treks = Trek.query.filter_by(is_deleted=False).all()
     return render_template('admin_manage_trek.html', treks=treks)
 
 @admin_Bp.route('/viewtrek/<int:trek_id>', methods=['GET'], endpoint='viewtrek')
+@login_required
 def viewtrek(trek_id):
     trek = Trek.query.filter_by(id=trek_id, is_deleted=False).first()
     return render_template('view_trek_admin.html', trek=trek)

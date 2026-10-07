@@ -6,9 +6,13 @@ from routes.auth import auth_Bp
 from routes.admin import admin_Bp
 from routes.staff import staff_Bp
 from routes.user import user_Bp
+import os
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///trek.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
+    "DATABASE_URL",
+    "sqlite:///trek.db"
+)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False   
 app.config['SECRET_KEY'] = 'my_key'  
 db.init_app(app)  
