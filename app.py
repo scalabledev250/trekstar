@@ -34,6 +34,7 @@ app.register_blueprint(staff_Bp)
 app.register_blueprint(user_Bp)
 
 with app.app_context():
+    db.create_all() # Create all tables in the configured database
     admin_name = "admin"
     admin_pwd = "adm123"
     admin_email = "admin@gmail.com"
