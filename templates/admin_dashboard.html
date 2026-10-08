@@ -54,7 +54,7 @@
         </div>
     </div>
     <form class="d-flex mb-3 m-4 trail-search" action="{{ url_for('admin.admindashboard') }}" method="GET">
-    <input class="form-control me-2" type="search" name="staff" placeholder="Search staff members" aria-label="Search staff members" required>
+    <input class="form-control me-2" type="search" name="staff_search" placeholder="Search staff members" aria-label="Search staff members" required>
     <button class="btn btn-trek" type="submit">Search</button>
     </form>
     {% if staff_search %}
@@ -71,7 +71,7 @@
     {% endif %}
 
     <form class="d-flex mb-3 m-4 trail-search" action="{{ url_for('admin.admindashboard') }}" method="GET">
-    <input class="form-control me-2" type="search" name="user" placeholder="Search users" aria-label="Search users" required>
+    <input class="form-control me-2" type="search" name="user_search" placeholder="Search users" aria-label="Search users" required>
     <button class="btn btn-trek" type="submit">Search</button>
     </form>
     {% if user_search %}
@@ -99,7 +99,7 @@
     {% endif %}
 
     <form class="d-flex mb-3 m-4 trail-search" action="{{ url_for('admin.admindashboard') }}" method="GET">
-    <input class="form-control me-2" type="search" name="trek" placeholder="Search treks" aria-label="Search treks" required>
+    <input class="form-control me-2" type="search" name="trek_search" placeholder="Search treks" aria-label="Search treks" required>
     <button class="btn btn-trek" type="submit">Search</button>
     </form>
     {% if trek_search %}

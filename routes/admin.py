@@ -19,7 +19,7 @@ def admindashboard():
         sres = []  
     user_search = request.args.get('user_search', '')
     if user_search:
-        res = User.query.filter(User.role == Role.user, User.username.ilike(f'%{user_search}%')).all()
+        ures = User.query.filter(User.role == Role.trekker, User.username.ilike(f'%{user_search}%')).all()
     else:
         ures = []    
     trek_search = request.args.get('trek_search', '')
@@ -124,7 +124,7 @@ def edittrek(trek_id):
     trek = Trek.query.filter_by(id=trek_id, is_deleted=False).first()
     all_staff = User.query.filter_by(role=Role.staff).all()
     if request.method == 'POST':
-        trek.trek_name = request.form.get('trek_name')
+        trek.trekname = request.form.get('trek_name')
         trek.location = request.form.get('location')
         trek.difficulty = Diff[request.form.get('difficulty')]
         trek.duration = int(request.form.get('duration'))
@@ -136,7 +136,7 @@ def edittrek(trek_id):
         sdate = datetime.strptime(request.form.get('start_date'), '%Y-%m-%d').date()
         edate = datetime.strptime(request.form.get('end_date'), '%Y-%m-%d').date()
         if sdate > edate:
-            return render_template('add_trek.html', all_staff=all_staff, error="Start date cannot be after end date.")
+            return render_template('edit_trek.html', all_staff=all_staff, error="Start date cannot be after end date.")
         trek.start_date = sdate
         trek.end_date = edate
         if desc:
